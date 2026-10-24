@@ -1,18 +1,14 @@
 print("Enter puzzle input:")
 
 instructions = input()
-floor = 0
-hit_basement = False
+current_floor = 0
 
-for i, c in enumerate(instructions):
-    if c == "(":
-        floor += 1
-    elif c == ")":
-        floor -= 1
+floors = list(map(lambda x: 1 if x is "(" else -1, list(instructions)))
 
-    if floor < 0 and not hit_basement:
+for i, floor in enumerate(floors):
+    current_floor += floor
+    if current_floor < 0:
         print("First character that causes him to enter the basement: " + str(i + 1))
-        hit_basement = True
-        
-print("Floor: " + str(floor))
+        break
 
+print("Floor: " + str(sum(floors)))
